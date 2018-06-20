@@ -1,0 +1,56 @@
+.topPageText {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.topPage {
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.bodycolor {
+
+}
+
+.menuOptions {
+  align-content: flex-start;
+  background-color: #F7BFCC;
+}
+
+.menuOptionsTwo {
+  align-content: flex-start;
+  background-color: #6DB1B1;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+}
+
+.pickPrice {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pickPrice p {
+  padding-right: 10px;
+  font-size: 20px;
+}
+
+.PhotoBody {
+  background-color: #F7BFCC;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.VidoBody {
+  background-color: #6DB1B1;
+}
+
+.navbar {
+}
