@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import NavMenu from './NavMenu';
+import axios from 'axios';
 import PhotographerForm from './PhotographerForm';
 import { getPhotographers } from '../actions/photographers';
 import { Container, Grid, Header, Card, Image, Dropdown, Divider, Button } from 'semantic-ui-react';
@@ -9,41 +10,10 @@ import { Container, Grid, Header, Card, Image, Dropdown, Divider, Button } from 
 class PhotographersAdmin extends React.Component {
   state = { category: '', photographers: [] }
 
-  photographers = () => {
-    let { photographers } = this.props;
-    let { category } = this.state;
-    let visible = photographers;
-    if (category)
-      visible = photographers.filter( a => a.category === category )
-    return visible.map( photographer =>
-      <Grid.Column computer={4}>
-        <Card key={photographer.id}>
-          <Card.Content>
-          { photographer.img_url && <Image src={photographer.img_url} /> }
-          </Card.Content>
-          <Card.Content>
-            <Card.Header>
-              {photographer.name}
-            </Card.Header>
-            <Card.Meta>
-              <span>
-                {photographer.phone}
-              </span>
-            </Card.Meta>
-            <Card.Description>
-              {photographer.category}
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <a href={photographer.insta} >
-              Link to Instagram
-            </a>
-          </Card.Content>
-        </Card>
-        <br />
-      </Grid.Column>
-    )
-  }
+ componentDidMount() {
+   axios.get('/api/photographers')
+    .then( ({ data: photographers }) => this.setState({ photographers }) )
+ }
 
   addPhotographer = (photographer) => {
     const { photographers } = this.state;
@@ -54,8 +24,17 @@ class PhotographersAdmin extends React.Component {
     return this.props.categories.map( (c,i) => { return { key: i, text: c, value: c } })
   }
 
+  deletePhotographer = (id) => {
+    const { photographers } = this.state;
+    axios.delete(`/api/photographers/${id}`)
+      .then( ({ data }) => {
+        this.setState({ photographers: [] })
+      })
+  }
+
   render() {
     let { category } = this.state;
+    const { photographers } = this.state;
     return (
       <div>
       <div className='bodycolor'>
@@ -97,11 +76,35 @@ class PhotographersAdmin extends React.Component {
         <Divider />
       </Container>
       <div className='PhotoBody'>
-        <Grid columns={16}>
-          <Grid.Row>
-            { this.photographers() }
-          </Grid.Row>
-        </Grid>
+        { photographers.map( photographer =>
+          <Grid.Column computer={4}>
+          <Card key={photographer.id}>
+            { photographer.img_url && <Image src={photographer.img_url} /> }
+            <Card.Content>
+              <Card.Header>
+                {photographer.name}
+              </Card.Header>
+              <Card.Meta>
+                <span>
+                  {photographer.phone}
+                </span>
+              </Card.Meta>
+              <Card.Description>
+                {photographer.category}
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <a href={photographer.insta} >
+                Link to Instagram
+              </a>
+            </Card.Content>
+            <Card.Content>
+              <Button basic onCLick={this.deletePhotographer(photographer.id)}>Delete</Button>
+            </Card.Content>
+          </Card>
+          <br />
+        </Grid.Column>
+      )}
       </div>
       </div>
       <div className='formCreate'>

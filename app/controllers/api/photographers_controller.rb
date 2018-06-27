@@ -1,5 +1,4 @@
 class Api::PhotographersController < ApplicationController
-  before_action :set_photographer, only: [:show, :update, :destroy]
 
   def index
     render json: Photographer.all.to_json( only: [:name, :phone, :category, :insta], methods: :img_url )
@@ -15,6 +14,7 @@ class Api::PhotographersController < ApplicationController
 
     if photographer.save
       render json: {
+        id: photographer.id,
         name: photographer.name,
         phone: photographer.phone,
         insta: photographer.insta,
@@ -35,16 +35,13 @@ class Api::PhotographersController < ApplicationController
   end
 
   def destroy
-    @photographer.destroy
+    Photographer.find(params.permit[:id]).destroy
   end
 
   private
-    def set_photographer
-      @photographer = Photographer.find(params[:id])
-    end
 
     def photographer_params
-      params.require(:photographer).permit(:name, :phone, :price, :category, :email, :img, :insta )
+      params.require(:photographer).permit(:name, :phone, :price, :category, :email, :img, :insta, :id )
     end
 
 
