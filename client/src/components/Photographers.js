@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import NavMenu from './NavMenu';
+import Footer from './Footer';
+import ReactPlayer from 'react-player';
 import PhotographerForm from './PhotographerForm';
 import { getPhotographers } from '../actions/photographers';
-import { Container, Grid, Header, Card, Image, Dropdown, Divider, Button } from 'semantic-ui-react';
+import { Container, Grid, Header, Card, Image, Dropdown, Divider, Button, Icon } from 'semantic-ui-react';
 
 class Photographers extends React.Component {
   state = { category: '', photographers: [] }
@@ -23,18 +25,27 @@ class Photographers extends React.Component {
             <Card.Header>
               {photographer.name}
             </Card.Header>
+            <p></p>
             <Card.Meta>
               <span>
                 {photographer.phone}
+              </span>
+            </Card.Meta>
+            <p></p>
+            <Card.Meta>
+              <span>
+                <address>
+                  {photographer.email}
+                </address>
               </span>
             </Card.Meta>
             <Card.Description>
               {photographer.category}
             </Card.Description>
           </Card.Content>
-          <Card.Content extra>
+          <Card.Content>
             <a href={photographer.insta} >
-              Link to Instagram
+              See my work! <Icon name="instagram" />
             </a>
           </Card.Content>
         </Card>
@@ -64,14 +75,8 @@ class Photographers extends React.Component {
           <br />
           <div className='topPageText'>
             <Container>
-            <Header>Welcome to BLANK!</Header>
-            <p>Your one stop shop for wedding Photographers and Videographers!
-              We are commited to taking out the hassle of finding an affordable
-              wedding photographer and or videographer. Here at BLANK we understand
-              how important getting those services arranged is and how stressfull it
-              can be. Browse through our list of Photographers and Videographers to find
-              one you like and get in touch with them RIGHT away. Have a wonderful Wedding!
-            </p>
+            <Header as="h1" textAlign="center">Photographers!</Header>
+            <p>Use the filter option to narrow down your search <Icon name="arrow alternate circle down" /></p>
             </Container>
           </div>
           <br />
@@ -80,7 +85,6 @@ class Photographers extends React.Component {
       <br />
       <div className='categoryMenu'>
       <Container>
-        <Header as="h3" textAlign="center">Photographers!</Header>
         <div className='pickPrice'>
           <p>Sort by price to make things easier!</p>
           <Dropdown
@@ -91,7 +95,8 @@ class Photographers extends React.Component {
             value={category}
           />
         </div>
-        { category && <Button fluid basic onClick={ () => this.setState({ category: '' }) }>Clear Filter: {category}</Button> }
+        <br />
+        { category && <Button secondary fluid basic onClick={ () => this.setState({ category: '' }) }>Clear Filter: {category}</Button> }
         <Divider />
       </Container>
       <div className='PhotoBody'>
@@ -101,6 +106,9 @@ class Photographers extends React.Component {
           </Grid.Row>
         </Grid>
       </div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </div>
     )

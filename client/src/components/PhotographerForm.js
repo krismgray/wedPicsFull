@@ -13,7 +13,7 @@ import Dropzone from 'react-dropzone';
 
 
 class PhotographerForm extends Component{
-  state = { name: '', value: '', phone: '', category: '', insta: '', photographers: [] }
+  state = { name: '', value: '', phone: '', email: '', category: '', insta: '', photographers: [] }
 
   onDrop = (files) => {
   this.setState({ file: files[0] })
@@ -42,16 +42,17 @@ class PhotographerForm extends Component{
   handleSubmit = (e) => {
     e.preventDefault();
     let data = new FormData();
-    const { name, phone, category, file, photographers, insta } = this.state;
+    const { name, phone, category, email, file, photographers, insta } = this.state;
     data.append('name', name);
     data.append('phone', phone);
+    data.append('email', email);
     data.append('insta', insta);
     data.append('category', category);
     data.append('img', file);
     axios.post('/api/photographers', data)
     .then( res => {
       this.props.addPhotographer(res.data)
-      this.setState({ name: '', phone: '', category: '', file: '', insta: '' })
+      this.setState({ name: '', phone: '', email: '', category: '', file: '', insta: '' })
     })
   }
 
@@ -81,6 +82,12 @@ class PhotographerForm extends Component{
                 value={this.state.phone}
                 onChange={this.handleChanger}
                   />
+                  <Form.Input
+                    required
+                    label="Email"
+                    value={this.state.email}
+                    onChange={this.handleChangey}
+                      />
                   <Form.Input
                     required
                     label="Category"

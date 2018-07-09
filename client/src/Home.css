@@ -56,3 +56,34 @@
 
 .navbar {
 }
+
+.footer {
+  background-size: cover;
+  background-color: #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.footer1 {
+  display: flex;
+  flex-direction: row;
+}
+
+.footnote2 {
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.footnote3 {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+}

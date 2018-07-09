@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import NavMenu from './NavMenu';
 import VideographerForm from './VideographerForm';
 import { getVideographers } from '../actions/videographers';
-import { Container, Grid, Header, Card, Image, Dropdown, Divider, Button } from 'semantic-ui-react';
+import { Container, Grid, Header, Card, Image, Dropdown, Divider, Button, Icon } from 'semantic-ui-react';
 
 class Videographers extends React.Component {
   state = { category: '', videographers: [] }
@@ -64,14 +64,8 @@ class Videographers extends React.Component {
           <br />
           <div className='topPageText'>
             <Container>
-            <Header>Welcome to BLANK!</Header>
-            <p>Your one stop shop for wedding Photographers and Videographers!
-              We are commited to taking out the hassle of finding an affordable
-              wedding photographer and or videographer. Here at BLANK we understand
-              how important getting those services arranged is and how stressfull it
-              can be. Browse through our list of Photographers and Videographers to find
-              one you like and get in touch with them RIGHT away. Have a wonderful Wedding!
-            </p>
+              <Header as="h1" textAlign="center">Videographers!</Header>
+              <p>Use the filter option to narrow down your search <Icon name="arrow alternate circle down" /></p>
             </Container>
           </div>
           <br />
@@ -101,9 +95,6 @@ class Videographers extends React.Component {
           </Grid.Row>
         </Grid>
       </div>
-      </div>
-      <div className='formnewvideo'>
-        <VideographerForm addVideographer={this.addVideographer} />
       </div>
     </div>
     )
